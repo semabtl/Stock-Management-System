@@ -16,46 +16,38 @@ import DAO.ProductDao;
 import Model.Basket;
 import Model.Product;
 
-/**
- * Servlet implementation class AddToBasketServlet
- */
 @WebServlet("/add-to-basket")
 public class AddToBasketServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	ArrayList<Basket> productList = new ArrayList<>();
+	ArrayList<Basket> basketList = new ArrayList<>();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html; charset=UTF-8");
 		
 		try(PrintWriter out = response.getWriter()){
 			
-			Basket b = new Basket();
-			b.setBarcode(Integer.parseInt(request.getParameter("new-barcode")));
-			b.setOrderQuantity(Integer.parseInt(request.getParameter("new-quantity")));
-			if(productList.isEmpty()) {
-				productList.add(b);
-				System.out.println(b.getBarcode());
+			//Tüm özellikler set edilmedi !!!
+			Basket basket = new Basket();
+			basket.setBarcode(Integer.parseInt(request.getParameter("new-barcode")));
+			basket.setOrderQuantity(Integer.parseInt(request.getParameter("new-quantity")));
+			basket.setSupplierName(request.getParameter("new-supplier"));
+			
+			if(basketList.isEmpty()) {
+				basketList.add(basket);
 			}
 			else {
-				if(containsThatProduct(productList, b.getBarcode())) {
+				ProductDao p = new ProductDao(DatabaseConnection.getConnection());
+				if(p.containsThatProduct(basketList, basket.getBarcode())) {
 					System.out.println("product exists in the list");
 				}
 				else {
-					productList.add(b);
-					System.out.println("product added");
+					basketList.add(basket);
 				}
 			}
+			HttpSession session = request.getSession();
+			session.setAttribute("basket-list", basketList);
+			response.sendRedirect("AddNewOrderPage.jsp");
 		}
 	}
 	
-	public static boolean containsThatProduct(ArrayList<Basket> productList, int barcode) {
-		boolean contains = false;
-		for(Basket b:productList) {
-			if(b.getBarcode() == barcode) {
-				contains = true;
-			}
-		}
-		return contains;
-	}
-
 }

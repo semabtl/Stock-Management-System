@@ -2,24 +2,14 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
 <%@ page import="Model.Basket" %>
-<%@ page import="DAO.ProductDao" %>
-<%@ page import="Connection.DatabaseConnection" %>
-<% 
-	ArrayList<Basket> basket_list = (ArrayList<Basket>) session.getAttribute("basket-list");
-	List<Basket> basketProduct = null;
-	if(basket_list != null){
-		ProductDao pdao = new ProductDao(DatabaseConnection.getConnection());
-		basketProduct = pdao.getBasketProducts(basket_list);
-		request.setAttribute("basket_list", basket_list);
-	}
-%>
 
+<% session = request.getSession(); %>
 
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<title>Basket</title>
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	</head>
 	<body>
@@ -36,27 +26,27 @@
 			  
 			  <tbody>
 			  <%
-			  if(basket_list != null){%>
-				  <%out.print("a");
-				 for(Basket b:basketProduct){ %>
-				  <%out.print("b"); 
-				  out.print(b.getBarcode());
-				  System.out.println("Barcode: " + b.getBarcode());
-				  %>
-				  
-					  <tr>
-					  	<td><%= b.getBarcode() %></td>
-					    <td><%= b.getQuantity() %></td>
-					    <td>suppliername?</td>
-					  </tr>
-			   <% }
-			  } %>
+			  ArrayList<Basket> basketList = (ArrayList<Basket>) session.getAttribute("basket-list");
 			  
-   
+			  if(basketList != null){
+			  	for(Basket product:basketList){ %>   
+					<tr>
+						<td><%= product.getBarcode() %></td>
+						<td><%= product.getOrderQuantity() %></td>
+						<td><%= product.getSupplierName() %></td>
+				    </tr>	  
+			 <% }			  
+			  } %>
+	 
 			  </tbody>
 			</table>
+			
+			<form action="" method=" ">
+				<div class="form-group p-3 text-center">
+					<input type="submit" name="options" value="Order" class="btn btn-outline-dark"/>
+				</div>
+			</form>
+			
 		</div>
-		
-
 	</body>
 </html>

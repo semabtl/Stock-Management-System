@@ -152,4 +152,14 @@ public class ProductDao {
 		}
 		return products;
 	}
+	//AddToBasketServlet içindeydi. Buraya taþýdým. Orada productdao instance oluþturup bu metodu çaðýrýyprum artýk.
+	public boolean containsThatProduct(ArrayList<Basket> basketList, int barcode) {
+		boolean contains = false;
+		for(Basket product:basketList) {
+			if(product.getBarcode() == barcode) {
+				contains = true;
+			}
+		}
+		return contains;
+	}
 }
