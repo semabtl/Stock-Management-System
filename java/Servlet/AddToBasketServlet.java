@@ -11,7 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Connection.DatabaseConnection;
+import DAO.ProductDao;
 import Model.Basket;
+import Model.Product;
 
 /**
  * Servlet implementation class AddToBasketServlet
@@ -19,45 +22,40 @@ import Model.Basket;
 @WebServlet("/add-to-basket")
 public class AddToBasketServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	ArrayList<Basket> productList = new ArrayList<>();
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html; charset=UTF-8");
 		
 		try(PrintWriter out = response.getWriter()){
-			ArrayList<Basket> basketList = new ArrayList<>();
 			
-			int barcode = Integer.parseInt(request.getParameter("new-barcode"));
-			Basket basket = new Basket();
-			basket.setBarcode(barcode);
-			basket.setQuantity(1);
-			
-			HttpSession session = request.getSession();
-			ArrayList<Basket> basket_list = (ArrayList<Basket>) session.getAttribute("basket-list");
-			
-			if(basket_list == null) {
-				basketList.add(basket);
-				session.setAttribute("basket-list", basketList);
-				response.sendRedirect("AddNewOrderPage.jsp");
-			} 
+			Basket b = new Basket();
+			b.setBarcode(Integer.parseInt(request.getParameter("new-barcode")));
+			b.setOrderQuantity(Integer.parseInt(request.getParameter("new-quantity")));
+			if(productList.isEmpty()) {
+				productList.add(b);
+				System.out.println(b.getBarcode());
+			}
 			else {
-				basketList = basket_list;
-				
-				boolean exists = false;
-				//Eklenmek istenen ürünün listede olup olmadýðý kontrol edilir.
-				for(Basket b:basket_list) {
-					if(b.getBarcode() == barcode) {
-						exists = true;
-						out.println(b.getBarcode());
-						out.println("<h3 class=\"text-center\"> Product already added to order list");
-					}
+				if(containsThatProduct(productList, b.getBarcode())) {
+					System.out.println("product exists in the list");
 				}
-				//Ürün listede yoksa eklenir.
-				if(!exists) {
-					basketList.add(basket);
-					response.sendRedirect("AddNewOrderPage.jsp");
+				else {
+					productList.add(b);
+					System.out.println("product added");
 				}
 			}
 		}
+	}
+	
+	public static boolean containsThatProduct(ArrayList<Basket> productList, int barcode) {
+		boolean contains = false;
+		for(Basket b:productList) {
+			if(b.getBarcode() == barcode) {
+				contains = true;
+			}
+		}
+		return contains;
 	}
 
 }

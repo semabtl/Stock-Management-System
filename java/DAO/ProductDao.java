@@ -54,6 +54,28 @@ public class ProductDao {
 			e.printStackTrace();
 		}
 	}
+	public Product getProductByBarcode(int barcode) {
+		Product product = new Product();
+		
+		try {
+			query = "SELECT * FROM products WHERE barcode = " + barcode ;
+			s = connection.createStatement(); 
+			rs = s.executeQuery(query);
+			rs.next();
+			
+			product.setProductId(rs.getInt("productid"));
+			product.setBarcode(rs.getInt("barcode"));
+			product.setName(rs.getString("productname"));
+			product.setCategory(rs.getString("category"));
+			product.setCostPrice(rs.getDouble("costprice"));
+			product.setSellingPrice(rs.getDouble("sellingprice"));
+			product.setQuantity(rs.getInt("quantity"));
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return product;
+	}
 	
 	public Product getProductById(int id) {
 		Product product = new Product();
