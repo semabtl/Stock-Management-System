@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import Connection.DatabaseConnection;
+import DAO.BasketDao;
 import DAO.ProductDao;
 import Model.Basket;
 import Model.Product;
@@ -19,6 +20,7 @@ import Model.Product;
 @WebServlet("/add-to-basket")
 public class AddToBasketServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
 	ArrayList<Basket> basketList = new ArrayList<>();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -26,11 +28,13 @@ public class AddToBasketServlet extends HttpServlet {
 		
 		try(PrintWriter out = response.getWriter()){
 			
-			//Tüm özellikler set edilmedi !!!
-			Basket basket = new Basket();
-			basket.setBarcode(Integer.parseInt(request.getParameter("new-barcode")));
-			basket.setOrderQuantity(Integer.parseInt(request.getParameter("new-quantity")));
-			basket.setSupplierName(request.getParameter("new-supplier"));
+			int newBarcode = Integer.parseInt(request.getParameter("new-barcode"));
+			int orderQuantity = Integer.parseInt(request.getParameter("new-quantity"));
+			String newSupplierName = request.getParameter("new-supplier");
+			String orderDate = request.getParameter("new-date");
+			
+			BasketDao bdao = new BasketDao(DatabaseConnection.getConnection());
+			Basket basket = bdao.createNewBasketObject(newBarcode, orderQuantity, newSupplierName, orderDate);
 			
 			if(basketList.isEmpty()) {
 				basketList.add(basket);

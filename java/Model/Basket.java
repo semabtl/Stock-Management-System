@@ -1,8 +1,11 @@
 package Model;
 
-public class Basket extends Product {
-	private String orderDate;
+import java.io.Serializable;
+
+public class Basket extends Product implements Serializable{
 	private int orderQuantity;
+	private double totalCost;
+	private String orderDate;
 	private String supplierName;
 	
 	public Basket() {
@@ -32,5 +35,12 @@ public class Basket extends Product {
 		this.supplierName = supplierName;
 	}
 
+	public double getTotalCost() {
+		return totalCost;
+	}
+
+	public void setTotalCost(double totalCost) {
+		this.totalCost = totalCost;
+	}
 	
 }

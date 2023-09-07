@@ -2,8 +2,11 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
 <%@ page import="Model.Basket" %>
+<%@page import= "java.text.DecimalFormat" %>
 
-<% session = request.getSession(); %>
+<% session = request.getSession(); 
+	final DecimalFormat df = new DecimalFormat("0.00000");
+%>
 
 <!DOCTYPE html>
 <html>
@@ -21,6 +24,7 @@
 			      <th scope="col">Barcode</th>
 			      <th scope="col">Quantity</th>
 			      <th scope="col">Supplier</th>
+			      <th scope="col">Cost</th>
 			    </tr>
 			  </thead>
 			  
@@ -34,6 +38,7 @@
 						<td><%= product.getBarcode() %></td>
 						<td><%= product.getOrderQuantity() %></td>
 						<td><%= product.getSupplierName() %></td>
+						<td><%= df.format(product.getTotalCost()) %></td>
 				    </tr>	  
 			 <% }			  
 			  } %>
@@ -41,11 +46,13 @@
 			  </tbody>
 			</table>
 			
+			<% if(basketList != null){ %>
 			<form action="" method=" ">
 				<div class="form-group p-3 text-center">
 					<input type="submit" name="options" value="Order" class="btn btn-outline-dark"/>
 				</div>
 			</form>
+			<% } %>
 			
 		</div>
 	</body>

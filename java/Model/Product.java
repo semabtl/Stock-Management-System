@@ -8,17 +8,15 @@ public class Product{
 	private String category;
 	private double costPrice;
 	private double sellingPrice;
-	private int quantity;
 	
 	public Product() {
 	}
 
-	public Product(String name, String category, double costPrice, double sellingPrice, int quantity) {
+	public Product(String name, String category, double costPrice, double sellingPrice) {
 		this.name = name;
 		this.category = category;
 		this.costPrice = costPrice;
 		this.sellingPrice = sellingPrice;
-		this.quantity = quantity;
 	}
 
 	public int getProductId() {
@@ -68,12 +66,5 @@ public class Product{
 	public void setSellingPrice(double sellingPrice) {
 		this.sellingPrice = sellingPrice;
 	}
-
-	public int getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}	
+	
 }

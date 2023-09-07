@@ -11,7 +11,7 @@
 		<div class="container">
 			<div class="d-grid gap-2 col-4 mx-auto mt-5">
 				<a href="AddNewOrderPage.jsp" class="btn btn-outline-dark">Add Order</a>
-				<a href="OrderListPage.jsp" class="btn btn-outline-dark">List Orders</a>
+				<a href="#" class="btn btn-outline-dark">List Orders</a>
 				<a href="#" class="btn btn-outline-dark">Expenditures</a>
 			</div>
 		</div>

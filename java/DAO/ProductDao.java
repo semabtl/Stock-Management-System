@@ -23,12 +23,12 @@ public class ProductDao {
 	
 	public void createNewProduct(String name, String category, double costPrice, double sellingPrice, int quantity) {
 		//Yeni ürün oluþturulur.
-		Product newProduct = new Product(name, category, costPrice, sellingPrice, quantity);
+		Product newProduct = new Product(name, category, costPrice, sellingPrice);
 		
 		try {
 			//Ürün veritabanýna eklenir.
 			query = "INSERT INTO products VALUES ( nextVal('productid_seq'), nextVal('barcode_seq'), '" +
-						name + "', '" + category  + "', " + costPrice + " , " + sellingPrice + " , " + quantity + " ) "; 
+						name + "', '" + category  + "', " + costPrice + " , " + sellingPrice + " ) "; 
 			s = connection.createStatement();
 			s.executeUpdate(query);
 			
@@ -50,6 +50,10 @@ public class ProductDao {
 			newProduct.setProductId(productId);
 			newProduct.setBarcode(barcode);
 			
+			query = "INSERT INTO stock VALUES ( nextVal('stockid_seq'), " + productId + ", " + quantity + ")";
+			s = connection.createStatement();
+			s.executeUpdate(query);
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -69,7 +73,6 @@ public class ProductDao {
 			product.setCategory(rs.getString("category"));
 			product.setCostPrice(rs.getDouble("costprice"));
 			product.setSellingPrice(rs.getDouble("sellingprice"));
-			product.setQuantity(rs.getInt("quantity"));
 			
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -92,7 +95,6 @@ public class ProductDao {
 			product.setCategory(rs.getString("category"));
 			product.setCostPrice(rs.getDouble("costprice"));
 			product.setSellingPrice(rs.getDouble("sellingprice"));
-			product.setQuantity(rs.getInt("quantity"));
 			
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -115,7 +117,6 @@ public class ProductDao {
 				newProduct.setCategory(rs.getString("category"));
 				newProduct.setCostPrice(rs.getDouble("costprice"));
 				newProduct.setSellingPrice(rs.getDouble("sellingprice"));
-				newProduct.setQuantity(rs.getInt("quantity"));
 				
 				products.add(newProduct);
 			}
@@ -125,33 +126,7 @@ public class ProductDao {
 		
 		return products;
 	}
-	public List<Basket> getBasketProducts(ArrayList<Basket> basketList){
-		List<Basket> products = new ArrayList<Basket>();
-		
-		try {
-			if(basketList.size() > 0) {
-				for(Basket item:basketList) {
-					query = "SELECT * FROM products WHERE barcode= " + item.getBarcode();
-					s = connection.createStatement();
-					rs = s.executeQuery(query);
-					
-					while(rs.next()) {
-						Basket row = new Basket();
-						row.setBarcode(rs.getInt("barcode"));
-						row.setProductId(rs.getInt("productid"));
-						row.setCategory(rs.getString("category"));
-						row.setCostPrice(rs.getDouble("costprice") * item.getQuantity());
-						row.setName(rs.getString("productname"));
-						row.setQuantity(item.getQuantity());
-						products.add(row);
-					}
-				}
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		return products;
-	}
+
 	//AddToBasketServlet içindeydi. Buraya taþýdým. Orada productdao instance oluþturup bu metodu çaðýrýyprum artýk.
 	public boolean containsThatProduct(ArrayList<Basket> basketList, int barcode) {
 		boolean contains = false;

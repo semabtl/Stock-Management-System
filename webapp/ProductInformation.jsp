@@ -25,8 +25,7 @@
 		    <p class = "card-text fw-bold">Category: <%= product.getCategory() %></p>
 			<p class = "card-text fw-bold">Cost Price: <%= product.getCostPrice()%></p>
 			<p class = "card-text fw-bold">Selling Price: <%= product.getSellingPrice() %></p>
-			<p class = "card-text fw-bold">Quantity: <%= product.getQuantity() %></p>
-			
+			<!-- Quantity -->
 		  </div>
 		</div>
 	</body>
