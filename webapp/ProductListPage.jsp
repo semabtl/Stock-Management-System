@@ -29,9 +29,7 @@
 					<div class="card m-3 pt-5 text-center" style="height: 15rem;">
 				      <div class="card-body">
 				        <h5 class="card-title"> Product Name: <%= p.getName() %></h5>
-				       <!-- Quantity:  p getQuantity()   --> 
 				        <a href="show-information?productId=<%=p.getProductId() %>" class="btn btn-outline-dark mt-2">Show Details</a>
-				      
 				      </div>
 					</div>
 				</div>

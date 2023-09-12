@@ -4,8 +4,10 @@
 <%@ page import="Model.Basket" %>
 <%@page import= "java.text.DecimalFormat" %>
 
-<% session = request.getSession(); 
+<% 
+	session = request.getSession(); 
 	final DecimalFormat df = new DecimalFormat("0.00000");
+	ArrayList<Basket> basketList = (ArrayList<Basket>) session.getAttribute("basket-list");
 %>
 
 <!DOCTYPE html>
@@ -18,20 +20,33 @@
 	<body>
 		<jsp:include page="includes/navbar.jsp" />
 		<div class="container mt-5">
-			<table class="table">
-			  <thead>
+			<div class="row">
+				<div class="col-md-11">
+					<a href="AddNewOrderPage.jsp" class="btn btn-outline-dark mb-3">Back</a>
+				</div>
+				<div class="col-md-1">
+					<% if(basketList != null){ %>
+						<form action="add-new-order" method="POST">
+							<input type="submit" name="options" value="Order" class="btn btn-outline-dark"/>
+						</form>
+					<% } %>
+				</div>	
+			</div>
+			
+			
+			<table class="table table-bordered align-middle">
+			  <thead class="table-secondary">
 			    <tr>
 			      <th scope="col">Barcode</th>
 			      <th scope="col">Quantity</th>
 			      <th scope="col">Supplier</th>
 			      <th scope="col">Cost</th>
+			      <th></th>
 			    </tr>
 			  </thead>
 			  
 			  <tbody>
 			  <%
-			  ArrayList<Basket> basketList = (ArrayList<Basket>) session.getAttribute("basket-list");
-			  
 			  if(basketList != null){
 			  	for(Basket product:basketList){ %>   
 					<tr>
@@ -39,6 +54,12 @@
 						<td><%= product.getOrderQuantity() %></td>
 						<td><%= product.getSupplierName() %></td>
 						<td><%= df.format(product.getTotalCost()) %></td>
+						<td>
+							<div class="text-center">
+								<a href="delete-from-basket?id=<%= product.getProductId() %>" class="btn btn-outline-danger">Delete</a>
+							</div>
+							
+						</td>
 				    </tr>	  
 			 <% }			  
 			  } %>
@@ -46,13 +67,7 @@
 			  </tbody>
 			</table>
 			
-			<% if(basketList != null){ %>
-			<form action="" method=" ">
-				<div class="form-group p-3 text-center">
-					<input type="submit" name="options" value="Order" class="btn btn-outline-dark"/>
-				</div>
-			</form>
-			<% } %>
+			
 			
 		</div>
 	</body>

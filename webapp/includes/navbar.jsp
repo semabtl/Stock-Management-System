@@ -21,7 +21,7 @@
 		        <li class="nav-item">
 		          <a class="nav-link" href="PurchaseOptions.jsp">Purchase Management</a>
 		        </li>
-		        <li class="nav-item">
+				<li class="nav-item">
 		          <a class="nav-link" href="#">User Management</a>
 		        </li>
 		      </ul>
