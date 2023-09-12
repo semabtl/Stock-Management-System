@@ -9,7 +9,6 @@
 <% 
 	OrderDao odao = new OrderDao(DatabaseConnection.getConnection());
 	List<Order> orders = odao.getAllOrders();
-	List<Basket> orderedProducts = new ArrayList<Basket>();
 	
 	final DecimalFormat df = new DecimalFormat("0.00000");
 %>
@@ -38,17 +37,13 @@
 					<%
 					  if(orders != null){
 					  	for(Order order:orders){
-					  		System.out.println(order.getOrderId());
-					  		orderedProducts = order.getOrderedProducts();
+					  		System.out.println(odao.getOrderedProducts(order.getOrderId()));
 					  	%>
 							<tr>
 								<td><%= order.getOrderId() %></td>
 								<td><%= order.getOrderDate() %></td>
 								<td>
-								<% for(Basket b:orderedProducts){
-									System.out.println(b.getBarcode());
-									
-								} %>
+								
 								</td>
 								<td><%= df.format(order.getTotalCost()) %></td>
 								<td> <%= order.getStatus() %></td>

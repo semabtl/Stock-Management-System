@@ -1,14 +1,10 @@
 package Model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Order {
 	private int orderId;
 	private String orderDate;
 	private String status;
 	private double totalCost;
-	private List<Basket> orderedProducts = new ArrayList<Basket>();
 	
 	public Order() {
 	}
@@ -45,13 +41,4 @@ public class Order {
 		this.totalCost = totalCost;
 	}
 
-	public List<Basket> getOrderedProducts() {
-		return orderedProducts;
-	}
-
-	public void setOrderedProducts(List<Basket> orderedProducts) {
-		this.orderedProducts = orderedProducts;
-	}
-	
-	
 }

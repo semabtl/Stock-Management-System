@@ -22,7 +22,7 @@ public class OrderDao {
 	}
 	public List<Order> getAllOrders(){
 		List<Order> orders = new ArrayList<Order>();
-		int orderId = 0;
+		
 		try {
 			//Tüm sipariþler tek tek okunarak listeye eklenir.
 			query = "SELECT * FROM orders";
@@ -31,12 +31,10 @@ public class OrderDao {
 			
 			while(rs.next()) {
 				Order newOrder = new Order();
-				orderId = rs.getInt("orderid");
-				newOrder.setOrderId(orderId);
+				newOrder.setOrderId(rs.getInt("orderid"));
 				newOrder.setOrderDate(rs.getString("orderdate"));
 				newOrder.setStatus(rs.getString("status"));
 				newOrder.setTotalCost(rs.getDouble("totalcost"));
-				//newOrder.setOrderedProducts(getOrderedProducts(orderId));
 				
 				orders.add(newOrder);
 			}
@@ -47,23 +45,18 @@ public class OrderDao {
 		return orders;
 	}
 	
-	public List<Basket> getOrderedProducts(int orderId){
-		List<Basket> orderedProducts = new ArrayList<Basket>();
+	public ArrayList<Integer> getOrderedProducts(int orderId){
+		ArrayList<Integer> orderedProducts = new ArrayList<Integer>();
 		
 		try {
-			query = "SELECT * FROM order_product WHERE orderid=" + orderId;
+			query = "SELECT barcode FROM order_product WHERE orderid=" + orderId;
 			s = connection.createStatement(); 
 			rs = s.executeQuery(query);
 			
 			while(rs.next()) {
-				Basket basketProduct = new Basket();
-				
-				basketProduct.setBarcode(rs.getInt("barcode"));
-				basketProduct.setOrderQuantity(rs.getInt("quantity"));
-				
-				orderedProducts.add(basketProduct);
+				orderedProducts.add(rs.getInt("barcode"));
 			}
-			
+				
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
