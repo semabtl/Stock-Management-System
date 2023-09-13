@@ -23,7 +23,7 @@
 		<jsp:include page="includes/navbar.jsp"/>
 		<div class="container mt-5">
 			<table class="table table-bordered align-middle">
-				<thead class="table-secondary">
+				<thead class="table-secondary text-center">
 					<tr>
 						<th scope="col">Order Number</th>
 						<th scope="col">Order Date</th>
@@ -33,17 +33,25 @@
 					</tr>
 				</thead>
 		
-				<tbody>
+				<tbody class="text-center">
 					<%
 					  if(orders != null){
 					  	for(Order order:orders){
-					  		System.out.println(odao.getOrderedProducts(order.getOrderId()));
+					  		ArrayList<Integer> orderedProducts = odao.getOrderedProducts(order.getOrderId());
 					  	%>
 							<tr>
 								<td><%= order.getOrderId() %></td>
 								<td><%= order.getOrderDate() %></td>
 								<td>
-								
+									<table class="table table-borderless mb-0">
+        								<tbody>
+        									<%for(Integer productBarcode:orderedProducts){ %>
+        									<tr>
+        										<td><%=productBarcode %></td>
+        									</tr>
+        									<%} %>
+        								</tbody>
+        							</table>
 								</td>
 								<td><%= df.format(order.getTotalCost()) %></td>
 								<td> <%= order.getStatus() %></td>
