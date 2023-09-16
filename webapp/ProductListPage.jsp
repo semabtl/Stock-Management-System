@@ -19,23 +19,30 @@
 	</head>
 	<body>
 		<jsp:include page = "includes/navbar.jsp" />
-		<div class  = "container">
-			<div class = "row">
-			<% 
-			if(!products.isEmpty()){ 
-				for(Product p:products){
-			%>
-				<div class = "col-sm-3">
-					<div class="card m-3 pt-5 text-center" style="height: 15rem;">
-				      <div class="card-body">
-				        <h5 class="card-title"> Product Name: <%= p.getName() %></h5>
-				        <a href="show-information?productId=<%=p.getProductId() %>" class="btn btn-outline-dark mt-2">Show Details</a>
-				      </div>
-					</div>
-				</div>
-			<% } 
+		<div class  = "container mt-5 col-6">
+			<table class="table table-bordered table-sm ">
+			  <thead class="table-secondary text-center">
+			    <tr>
+			      <th scope="col">Product Name</th>
+			 	  <th></th>
+			    </tr>
+			  </thead>
+			  <tbody class="text-center">
+			  <% 
+				if(!products.isEmpty()){ 
+					for(Product p:products){
+			  %>
+			    <tr>
+			      <td><%= p.getName() %></td>
+			      <td>
+			      	<a href="show-information?productId=<%=p.getProductId() %>" class="btn btn-outline-dark mt-2">Show Details</a>
+			      </td>  
+			    </tr>
+			   <% } 
 			}	%>
-			</div>
+			  </tbody>
+			</table>
+			
 		</div>
 	</body>
 </html>

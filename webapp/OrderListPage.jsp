@@ -21,7 +21,7 @@
 	</head>
 	<body>
 		<jsp:include page="includes/navbar.jsp"/>
-		<div class="container mt-5">
+		<div class="container mt-5 col-10">
 			<table class="table table-bordered align-middle">
 				<thead class="table-secondary text-center">
 					<tr>

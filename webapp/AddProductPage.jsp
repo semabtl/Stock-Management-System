@@ -34,7 +34,7 @@
 								<input type="text" class="form-control" name="new-quantity" required>
 							</div>
 							<div class="form-group p-3 text-center">
-							  <input type="submit" value="Ekle" class="btn btn-outline-dark"/>
+							  <input type="submit" value="Add" class="btn btn-outline-dark"/>
 						  	</div>
 						</form>
 					</div>
