@@ -1,23 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="DAO.ProductDao"%>
-<%@page import="DAO.StockDao"%>
 <%@page import="Connection.DatabaseConnection"%>
 <%@page import="Model.Product"%>
-    
 <%
-	int selectedProductId = (int) session.getAttribute("product-id");
+	int selectedProductId = (int) session.getAttribute("product-id-for-barcode");
 	ProductDao pdao = new ProductDao(DatabaseConnection.getConnection());
-	StockDao sdao = new StockDao(DatabaseConnection.getConnection());
-	
-	Product product = pdao.getProductById(selectedProductId);
-	
+	Product product = pdao.getProductById(selectedProductId);	
 %>
-
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Product Details</title>
+		<title>Barcode</title>
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	</head>
 	<body>
@@ -40,26 +34,8 @@
 		      </ul>
 		    </div>
 		</nav>
-		
-		<div class="container mt-5" style = "width: 300px; margin: auto; margin-top: 50px; padding:20px;">
-			<h5 class = "card-title text-center text-uppercase mb-3"><%= product.getName() %></h5>
-			<table class="table table-bordered table-striped table-sm">
-			  <tbody>
-			    <tr>
-			      <th scope="row">Category:</th>
-			      <td><%= product.getCategory() %></td>
-			    </tr>
-			    <tr>
-			      <th scope="row">Cost Price:</th>
-			      <td><%= product.getCostPrice() %></td>
-			    </tr>
-			    <tr>
-			      <th scope="row">Selling Price:</th>
-			      <td><%= product.getSellingPrice() %></td>
-			    </tr>
-			  </tbody>
-			</table>
+		<div class="container text-center " style="margin-top: 200px; border:2px solid; width: 200px; height: 50px;">
+			<h3 class="pt-2"><%=product.getBarcode() %></h3>
 		</div>
-		
 	</body>
 </html>

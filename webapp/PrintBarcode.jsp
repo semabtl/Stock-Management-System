@@ -1,23 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="DAO.ProductDao"%>
-<%@page import="DAO.StockDao"%>
+<%@page import="DAO.UserDao"%>
 <%@page import="Connection.DatabaseConnection"%>
 <%@page import="Model.Product"%>
-    
-<%
-	int selectedProductId = (int) session.getAttribute("product-id");
-	ProductDao pdao = new ProductDao(DatabaseConnection.getConnection());
-	StockDao sdao = new StockDao(DatabaseConnection.getConnection());
-	
-	Product product = pdao.getProductById(selectedProductId);
-	
+<%@page import="java.util.List"%>
+<% 
+	ProductDao pdao = new ProductDao(DatabaseConnection.getConnection()); 
+	UserDao udao = new UserDao(DatabaseConnection.getConnection());
+	String email = (String) session.getAttribute("email");
+	int userId = udao.findUserIdByEmail(email);
+	List<Product> products = pdao.getAllProductsOfUser(userId);	
 %>
-
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Product Details</title>
+		<title>Print Barcode</title>
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	</head>
 	<body>
@@ -41,25 +39,30 @@
 		    </div>
 		</nav>
 		
-		<div class="container mt-5" style = "width: 300px; margin: auto; margin-top: 50px; padding:20px;">
-			<h5 class = "card-title text-center text-uppercase mb-3"><%= product.getName() %></h5>
-			<table class="table table-bordered table-striped table-sm">
-			  <tbody>
-			    <tr>
-			      <th scope="row">Category:</th>
-			      <td><%= product.getCategory() %></td>
-			    </tr>
-			    <tr>
-			      <th scope="row">Cost Price:</th>
-			      <td><%= product.getCostPrice() %></td>
-			    </tr>
-			    <tr>
-			      <th scope="row">Selling Price:</th>
-			      <td><%= product.getSellingPrice() %></td>
-			    </tr>
-			  </tbody>
-			</table>
+		<div class  = "container mt-5 col-4">
+			
+			<% if(!products.isEmpty()){  %>
+				<table class="table table-bordered table-sm ">
+				  <thead class="table-secondary text-center">
+				    <tr>
+				      <th scope="col">Please Select a Product to Print Barcode</th>
+				    </tr>
+				  </thead>
+				  <tbody class="text-center">
+				  <% 
+					for(Product p:products){
+				  %>
+				    <tr>
+					  <td>
+				      	<a href="print-barcode?id=<%=p.getProductId() %>" class="btn btn-outline-dark btn-block mt-2 " style="width: 200px;"><%= p.getName() %></a>
+				      </td>  
+				    </tr>
+				   <% } %>
+				  </tbody>
+				</table>
+			<% } else{ %>
+				<h3 class="text-center">There are no products!</h3>
+			<% } %>
 		</div>
-		
 	</body>
 </html>

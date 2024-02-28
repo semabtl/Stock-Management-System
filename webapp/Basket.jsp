@@ -18,18 +18,38 @@
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	</head>
 	<body>
-		<jsp:include page="includes/navbar.jsp" />
+		<nav class="navbar navbar-expand-lg navbar-light d-flex justify-content-end" style="background-color: #C0DBEA">
+		  <div class="container-fluid">
+		    <a class="navbar-brand fw-bold" href="index.jsp">Stock Management System</a>
+		      <ul class="navbar-nav">
+		        <li class="nav-item">
+		          <a class="nav-link" aria-current="page" href="index.jsp">Homepage</a>
+		        </li>
+		        <li class="nav-item">
+		          <a class="nav-link" href="ProductOptions.jsp">Product Management</a>
+		        </li>
+		        <li class="nav-item">
+		          <a class="nav-link active" href="PurchaseOptions.jsp">Purchase Management</a>
+		        </li>
+		        <li class="nav-item">
+			      <a class="nav-link" href="logout">Log out</a>
+			    </li>
+		      </ul>
+		    </div>
+		</nav>
 		<div class="container mt-5">
 			<div class="row">
 				<div class="col-md-11">
 					<a href="AddNewOrderPage.jsp" class="btn btn-outline-dark mb-3">Back</a>
 				</div>
 				<div class="col-md-1">
-					<% if(basketList != null){ %>
-						<form action="add-new-order" method="POST">
-							<input type="submit" name="options" value="Order" class="btn btn-outline-dark"/>
-						</form>
-					<% } %>
+					<% if(basketList != null){
+						if(!basketList.isEmpty()){ %>
+							<form action="add-new-order" method="POST">
+								<input type="submit" name="options" value="Order" class="btn btn-outline-dark"/>
+							</form>
+						<% } 
+						} %>
 				</div>	
 			</div>
 			

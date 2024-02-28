@@ -1,23 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="DAO.ProductDao"%>
 <%@page import="DAO.StockDao"%>
+<%@page import="DAO.UserDao"%>
+<%@page import="DAO.ProductDao"%>
 <%@page import="Connection.DatabaseConnection"%>
+<%@page import="Model.Stock"%>
 <%@page import="Model.Product"%>
-    
-<%
-	int selectedProductId = (int) session.getAttribute("product-id");
-	ProductDao pdao = new ProductDao(DatabaseConnection.getConnection());
+<%@page import="java.util.List"%>
+<% 
+	UserDao udao = new UserDao(DatabaseConnection.getConnection());
 	StockDao sdao = new StockDao(DatabaseConnection.getConnection());
+	ProductDao pdao = new ProductDao(DatabaseConnection.getConnection());
 	
-	Product product = pdao.getProductById(selectedProductId);
-	
+	String email = (String) session.getAttribute("email");
+	int userId = udao.findUserIdByEmail(email);
+	List<Stock> stockProducts = sdao.getStockOfUser(userId);	
 %>
-
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Product Details</title>
+		<title>Stock</title>
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	</head>
 	<body>
@@ -40,26 +42,32 @@
 		      </ul>
 		    </div>
 		</nav>
-		
-		<div class="container mt-5" style = "width: 300px; margin: auto; margin-top: 50px; padding:20px;">
-			<h5 class = "card-title text-center text-uppercase mb-3"><%= product.getName() %></h5>
-			<table class="table table-bordered table-striped table-sm">
-			  <tbody>
+		<div class  = "container mt-5 col-6">
+		<% if(!stockProducts.isEmpty()){  %>
+			<table class="table table-bordered table-sm ">
+			  <thead class="table-secondary text-center">
 			    <tr>
-			      <th scope="row">Category:</th>
-			      <td><%= product.getCategory() %></td>
+			      <th scope="col">Barcode</th>
+			      <th scope="col">Product Name</th>
+			 	  <th scope="col">Quantity</th>
 			    </tr>
+			  </thead>
+			  <tbody class="text-center">
+			  <% 
+				for(Stock s:stockProducts){
+					Product p = pdao.getProductById(s.getProductId());
+			  %>
 			    <tr>
-			      <th scope="row">Cost Price:</th>
-			      <td><%= product.getCostPrice() %></td>
+			      <td><%= p.getBarcode() %></td>
+			      <td><%= p.getName() %></td>
+			      <td><%= s.getQuantity() %></td> 
 			    </tr>
-			    <tr>
-			      <th scope="row">Selling Price:</th>
-			      <td><%= product.getSellingPrice() %></td>
-			    </tr>
+			   <% } %>
 			  </tbody>
 			</table>
+		<% } else{ %>
+			<h3 class="text-center">There are no products in stock!</h3>
+		<% } %>
 		</div>
-		
 	</body>
 </html>

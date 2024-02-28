@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Connection.DatabaseConnection;
 import Model.User;
@@ -24,6 +25,7 @@ public class LoginServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
+		HttpSession session = request.getSession();
 		try(PrintWriter out = response.getWriter()){
 			
 			//Login sayfasýndan girilen e-mail ve þifre alýnýr.
@@ -36,7 +38,10 @@ public class LoginServlet extends HttpServlet {
 			
 			//Eðer bu bilgilere sahip bir kullanýcý mevcutsa, anasayfaya yönlendirilir. Deðilse giriþ yapýlamaz ve uyarý verilir.
 			if(user!=null) {
+				int userId = user.getUserId();
 				request.getSession().setAttribute("auth", user);
+				session.setAttribute("email", email);
+				session.setAttribute("userid", userId);
 				response.sendRedirect("index.jsp");
 			}
 			else {

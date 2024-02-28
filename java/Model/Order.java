@@ -2,11 +2,19 @@ package Model;
 
 public class Order {
 	private int orderId;
+	private int userId;
 	private String orderDate;
-	private String status;
 	private double totalCost;
 	
 	public Order() {
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	public int getOrderId() {
@@ -23,14 +31,6 @@ public class Order {
 
 	public void setOrderDate(String orderDate) {
 		this.orderDate = orderDate;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
 	}
 
 	public double getTotalCost() {

@@ -16,10 +16,12 @@ public class BasketDao {
 	public BasketDao(Connection connection) {
 		this.connection = connection;
 	}
-	public boolean checkIfBarcodeExists(int barcode) {
+	
+	//Girilen barkoda sahip ürünün var olup olmadýðý veritabanýndan kontrol edilir.
+	public boolean checkIfBarcodeExists(int barcode, int userId) {
 		boolean exists = false;
 		try {
-			query = "SELECT * FROM products WHERE barcode = " + barcode;
+			query = "SELECT * FROM products WHERE barcode = " + barcode + " AND userid = " + userId;
 			s = connection.createStatement();
 			rs = s.executeQuery(query);
 			

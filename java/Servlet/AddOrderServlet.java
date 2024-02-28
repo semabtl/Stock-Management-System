@@ -29,12 +29,19 @@ public class AddOrderServlet extends HttpServlet {
 			String orderDate = (String) session.getAttribute("newDate");
 			
 			ArrayList<Basket> orderList = (ArrayList<Basket>) session.getAttribute("basket-list");
+			String userEmail = (String) session.getAttribute("email");
+			
 			OrderDao odao = new OrderDao(DatabaseConnection.getConnection());
 			if(orderList != null) {
-				odao.createNewOrder(orderList, orderDate);
+				if(!orderList.isEmpty()) {
+					odao.createNewOrder(orderList, orderDate, userEmail);
+					orderList.clear();
+					response.sendRedirect("OrderListPage.jsp");
+				}
 			}
 			else {
 				System.out.println("List is null !!!");
+				response.sendRedirect("ErrorMessage.jsp");
 			}
 		}
 	}

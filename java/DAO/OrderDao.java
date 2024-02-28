@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import Connection.DatabaseConnection;
 import Model.Basket;
 import Model.Order;
 import Model.Product;
@@ -14,18 +15,18 @@ public class OrderDao {
 	private Connection connection;
 	private String query;
 	private Statement s;
-	private ResultSet rs, rs2;
+	private ResultSet rs;
 	
 	
 	public OrderDao(Connection connection) {
 		this.connection = connection;
 	}
-	public List<Order> getAllOrders(){
+	public List<Order> getAllOrdersOfUser(int userId){
 		List<Order> orders = new ArrayList<Order>();
 		
 		try {
 			//Tüm sipariþler tek tek okunarak listeye eklenir.
-			query = "SELECT * FROM orders";
+			query = "SELECT * FROM orders WHERE userid = " + userId ;
 			s = connection.createStatement(); 
 			rs = s.executeQuery(query);
 			
@@ -33,8 +34,8 @@ public class OrderDao {
 				Order newOrder = new Order();
 				newOrder.setOrderId(rs.getInt("orderid"));
 				newOrder.setOrderDate(rs.getString("orderdate"));
-				newOrder.setStatus(rs.getString("status"));
 				newOrder.setTotalCost(rs.getDouble("totalcost"));
+				newOrder.setUserId(userId);
 				
 				orders.add(newOrder);
 			}
@@ -71,15 +72,18 @@ public class OrderDao {
 		return totalCost;
 	}
 	
-	public void createNewOrder(ArrayList<Basket> productList, String orderDate) {
+	public void createNewOrder(ArrayList<Basket> productList, String orderDate, String userEmail) {
+		UserDao udao = new UserDao(DatabaseConnection.getConnection());
+		int userId = udao.findUserIdByEmail(userEmail);
+		
 		Order newOrder = new Order();
 		newOrder.setOrderDate(orderDate);
-		newOrder.setStatus("Ordered");
 		newOrder.setTotalCost(calculateTotalListCost(productList));
+		newOrder.setUserId(userId);
 		
 		try {
 			//Sipariþ veritabanýna kaydedilir.
-			query = "INSERT INTO orders VALUES ( nextVal('orderid_seq'), '" + orderDate + "', " + calculateTotalListCost(productList) + ", 'Ordered')" ;
+			query = "INSERT INTO orders (orderid, orderdate, totalcost, userid) VALUES ( nextVal('orderid_seq'), '" + orderDate + "', " + calculateTotalListCost(productList) + ", " + userId + ")" ;
 			s = connection.createStatement();
 			s.executeUpdate(query);
 			
@@ -100,5 +104,20 @@ public class OrderDao {
 		}
 		
 	}
-	
+	public String getSupplierName(int orderId, int barcode) {
+		String supplierName = "";
+		try {
+			query = "SELECT suppliername FROM supplier WHERE orderid=" + orderId + " AND barcode=" + barcode;
+			s = connection.createStatement();
+			rs = s.executeQuery(query);
+			
+			if(rs.next()) {
+				supplierName = rs.getString("suppliername");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return supplierName;
+	}
 }

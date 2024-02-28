@@ -38,10 +38,13 @@ public class AddToBasketServlet extends HttpServlet {
 			//Tarih deðerinin session üzerinden aktarýmý saðlanýr.
 			session.setAttribute("newDate", newDate);
 			
+			//Kullanýcý id deðeri session üzerinden alýnýr.
+			int userId = (int) session.getAttribute("userid");
+			
 			BasketDao bdao = new BasketDao(DatabaseConnection.getConnection());
 			
-			//Girilen barkoda sahip ürünün var olup olmadýðý kontrole edilir.
-			boolean barcodeExists = bdao.checkIfBarcodeExists(newBarcode);
+			//Girilen barkoda sahip ürünün var olup olmadýðý kontrol edilir.
+			boolean barcodeExists = bdao.checkIfBarcodeExists(newBarcode, userId);
 			
 			if(barcodeExists) {
 				Basket basket = bdao.createNewBasketObject(newBarcode, orderQuantity, newSupplierName);

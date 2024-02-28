@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Connection.DatabaseConnection;
 import DAO.ProductDao;
@@ -22,6 +23,8 @@ public class AddProductServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
+		HttpSession session = request.getSession();
+		
 		try(PrintWriter out = response.getWriter()){
 			
 			//Kullanýcýnýn formdan girdiði yeni ürün deðerleri alýnýr.
@@ -31,12 +34,13 @@ public class AddProductServlet extends HttpServlet {
 			double sellingPrice = Double.parseDouble(request.getParameter("new-sellingPrice"));
 			int quantity = Integer.parseInt(request.getParameter("new-quantity"));
 			
+			int userId = (int) session.getAttribute("userid");
 			//Ürün oluþturulur ve veritabanýna eklenir.
 			ProductDao pdao = new ProductDao(DatabaseConnection.getConnection());
 			
-			pdao.createNewProduct(name, category, costPrice, sellingPrice, quantity);
+			pdao.createNewProduct(name, category, costPrice, sellingPrice, quantity, userId);
 			
-			response.sendRedirect("index.jsp");
+			response.sendRedirect("ProductListPage.jsp");
 		}
 	}
 //Barkod veritabannýnda varsa sayýsý toplanýp güncellenmeli.
