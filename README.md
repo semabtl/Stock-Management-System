@@ -52,14 +52,14 @@ Kullanıcı giriş yapmadıysa, Product Management ve Purchase Management sayfal
 
 ### Add Product Sayfası
 
-![picture-13](Screenshots/13.png)
+![picture-13](Screenshots/13_3.png)
 
 ### List Products Sayfası
 
-![picture-10](Screenshots/10.png)
+![picture-10](Screenshots/10_3.png)
 
 ### Show Details Seçeneği Seçilirse
 
-![picture-14](Screenshots/14.png)
+![picture-14](Screenshots/14_3.png)
 
 
