@@ -32,33 +32,33 @@ Tomcat kurulumu sonrası Eclipse IDE üzerinde server konfigürasyonu yapılmı�
 
 ![picture-1](Screenshots/1.png)
 
-Kullanıcı giriş yapmadıysa, Product Management ve Purchase Management sayfalarına erişememektedir. Bu sayfalara tıkladığında karşısına User Management sayfası çıkmaktadır. Bu sayfada giriş yapma ve kaydolma seçenekleri bulunmaktadır.
+Kullanıcı giriş yapmadıysa, Ürün Yönetimi(Product Management) ve Satın Alma Yönetimi(Purchase Management) sayfalarına erişememektedir. Bu sayfalara tıkladığında karşısına Kullanıcı Yönetimi(User Management) sayfası çıkmaktadır. Bu sayfada giriş yapma ve kaydolma seçenekleri bulunmaktadır.
 
-### User Management
+### Kullanıcı Yönetimi
 
 ![picture-2](Screenshots/2.png)
 
-### Log in Sayfası
+### Giriş Yapma Sayfası
 
 ![picture-3](Screenshots/3.png)
 
-### Sign in Sayfası
+### Kaydolma Sayfası
 
 ![picture-4](Screenshots/4.png)
 
-### Product Management Sayfası
+### Ürün Yönetimi Sayfası
 
 ![picture-5](Screenshots/5.png)
 
-### Add Product Sayfası
+### Ürün Ekleme Sayfası
 
 ![picture-13](Screenshots/13_3.png)
 
-### List Products Sayfası
+### Ürünleri Listeleme Sayfası
 
 ![picture-10](Screenshots/10_3.png)
 
-### Show Details Seçeneği Seçilirse
+### Detayları Göster Seçeneği Seçilirse
 
 ![picture-14](Screenshots/14_3.png)
 
