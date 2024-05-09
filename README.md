@@ -1,65 +1,82 @@
-# STOK TAKİP SİSTEMİ
-## Projenin Genel Özellikleri
-Bu projede, firmaların ürün, sipariş ve stok takibi yapabilecekleri bir web sitesi oluşturulmuştur. Projede Anasayfa, Ürün Yönetimi, Satın Alma Yönetimi ve Kullanıcı Yönetimi modülleri bulunmaktadır. Bu modüllerde bulunan alt modüller aşağıda listelenmiştir.
+# STOCK MANAGEMENT SYSTEM
+## General Features of the Project
+In this project, a website has been created where companies can track their products, orders and stocks. The project has 4 main modules: Homepage, Product Management, Purchase Management and User Management. The submodules that take part in this modules are listed below:
 
-**1.** Ürün Yönetimi
-- Ürün Ekleme
-- Ürün Listeleme 
-- Stok Görüntüleme
-- Barkod Yazdırma
+**1.** Product Management
+- Add Product
+- List Products 
+- Show Stock
+- Print Barcode
   
-**2.** Satın Alma Yönetimi 
-- Sipariş Oluşturma 
-  - Sepete Ürün Ekleme 
-  - Sepeti Görüntüleme
-- Sipariş Listeleme
+**2.** Purchase Management 
+- Add Order 
+  - Add Product to Basket 
+  - Show Basket
+- List Orders
   
-**3.** Kullanıcı Yönetimi
-- Giriş Yapma
-- Kaydolma
+**3.** User Management
+- Log In
+- Sign In
 
-## Projede Kullanılan Teknolojiler
-Projede Java programlama dili kullanılmıştır. Frontend kısmında JSP sayfaları kullanılmıştır. Servlet yapısıyla JSP sayfalarından gelen bilgiler ve hareketler yönetilmiştir. Veri tabanı yönetimi için PostgreSQL kullanılmıştır.
-Projenin web projesi olarak çalıştırılması için Tomcat web server kullanılmıştır.
+## Technologies Used in the Project
+Java programming language was used for the project. JSP (Java Server Pages) pages were used in the frontend. With the Servlet structure, information and actions coming from JSP pages are managed. PostgreSQL was used for database management. Tomcat web server was used to run the project as a web project. 
 
-## Projenin Geliştirilmesi ve Çalıştırılabilmesi için Hazırlanan Ortam
-Öncelikle bilgisayara Apache Tomcat uygulaması kurulmuştur. Tomcat, Java EE spesifikasyonlarını çalıştırmayı sağlayan bir web server olarak tanımlanır. Bunlar arasında Java Servlet ve Java Server Pages (JSP) yer almaktadır. Yapılacak olan projede kullanılacak olan uygulamalar da bunlardır. 
+## Environment Prepared for the Development and Running of the Project
+Apache Tomcat was installed on the computer firstly. Tomcat is defined as a web server that enables running Java EE specifications. Java Servlet and JSP are contained in the Java EE specifications.  
 
-Tomcat kurulumu sonrası Eclipse IDE üzerinde server konfigürasyonu yapılmıştır. Eclipse üzerinden web projesi yazmak ve çalıştırmak için Install New Software kısmından “Web, XML, Java EE and OSGi Enterprise Development” eklentisi indirilmiştir. Bu işlemlerin ardından Eclipse üzerinden Dynamic Web Project oluşturularak proje dosyası oluşturulmuştur. Daha sonra proje Maven projesine çevrilmiştir. Ardından proje için kodlama aşamasına geçilmiştir.
+After Tomcat installation, server configuration was made on Eclipse IDE. In order to code and run a web project on Eclipse, the “Web, XML, Java EE and OSGi Enterprise Development” plugin was downloaded from the Install New Software section. After all this, a project file was created by creating a Dynamic Web Project via Eclipse. Then the project was converted to Maven project. Then the coding phase was started for the project.
 
-## Kullanıcı Arayüzü Ekran Görüntüleri
-### Anasayfa
+## User Interface Screenshots
+### 1. Homepage
 
 ![picture-1](Screenshots/1.png)
 
-Kullanıcı giriş yapmadıysa, Ürün Yönetimi(Product Management) ve Satın Alma Yönetimi(Purchase Management) sayfalarına erişememektedir. Bu sayfalara tıkladığında karşısına Kullanıcı Yönetimi(User Management) sayfası çıkmaktadır. Bu sayfada giriş yapma ve kaydolma seçenekleri bulunmaktadır.
+If the user is not logged in, the user cannot access the Product Management and Purchase Management pages. When the user clicks on these pages, the User Management page is displayed. There are login and registration options on this page.
 
-### Kullanıcı Yönetimi
+### 2. User Management Pages
 
 ![picture-2](Screenshots/2.png)
 
-### Giriş Yapma Sayfası
+#### Log In
 
 ![picture-3](Screenshots/3.png)
 
-### Kaydolma Sayfası
+#### Sign In
 
 ![picture-4](Screenshots/4.png)
 
-### Ürün Yönetimi Sayfası
+### 3. Product Management Pages
 
 ![picture-5](Screenshots/5.png)
 
-### Ürün Ekleme Sayfası
+#### Add Product
 
 ![picture-13](Screenshots/13_3.png)
 
-### Ürünleri Listeleme Sayfası
+#### List Products
 
 ![picture-10](Screenshots/10_3.png)
 
-### Detayları Göster Seçeneği Seçilirse
+#### Product Details
 
 ![picture-14](Screenshots/14_3.png)
 
+#### Show Stock
 
+![picture-15](Screenshots/15_2.png)
+
+#### Print Barcode
+
+![picture-16](Screenshots/16.png)
+
+### 4. Purchase Management Pages
+
+![picture-17](Screenshots/17_2.png)
+
+#### Add Order
+
+![picture-18](Screenshots/18.png)
+
+#### List Orders
+
+![picture-19](Screenshots/19_2.png)
