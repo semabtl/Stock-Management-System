@@ -11,7 +11,7 @@ public class DatabaseConnection {
 	public static Connection getConnection() {
 		if(connection == null) {
 			try {
-				//Veritabaný ile baðlantý kurulur.
+				//Database connection is created.
 				connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Product-Management", "postgres", "1307");
 				Statement s = connection.createStatement();
 		    	

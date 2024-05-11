@@ -17,7 +17,7 @@ public class BasketDao {
 		this.connection = connection;
 	}
 	
-	//Girilen barkoda sahip ürünün var olup olmadýðý veritabanýndan kontrol edilir.
+	//It is checked from the database whether the product with the given barcode exists.
 	public boolean checkIfBarcodeExists(int barcode, int userId) {
 		boolean exists = false;
 		try {

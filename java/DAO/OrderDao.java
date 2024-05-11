@@ -25,7 +25,7 @@ public class OrderDao {
 		List<Order> orders = new ArrayList<Order>();
 		
 		try {
-			//Tüm sipariþler tek tek okunarak listeye eklenir.
+			//All orders are read one by one from the database and added to the list.
 			query = "SELECT * FROM orders WHERE userid = " + userId ;
 			s = connection.createStatement(); 
 			rs = s.executeQuery(query);
@@ -63,7 +63,7 @@ public class OrderDao {
 		}
 		return orderedProducts;
 	}
-	//Sipariþ listesinin toplam maliyeti hesaplanýr.
+	//The total cost of the order list is calculated.
 	public double calculateTotalListCost(ArrayList<Basket> productList) {
 		double totalCost = 0;
 		for(Basket product:productList) {
@@ -82,18 +82,18 @@ public class OrderDao {
 		newOrder.setUserId(userId);
 		
 		try {
-			//Sipariþ veritabanýna kaydedilir.
+			//The order is saved to the database.
 			query = "INSERT INTO orders (orderid, orderdate, totalcost, userid) VALUES ( nextVal('orderid_seq'), '" + orderDate + "', " + calculateTotalListCost(productList) + ", " + userId + ")" ;
 			s = connection.createStatement();
 			s.executeUpdate(query);
 			
 			for(Basket product:productList) {
-				//Sipariþ içeriðindeki her ürün tek tek veritabanýna kaydedilir.
+				//Each product in the order list is saved to the database one by one.
 				query = "INSERT INTO order_product VALUES ( currval('orderid_seq'), " + product.getBarcode() + ", " +   product.getOrderQuantity() + ")"; 
 				s = connection.createStatement();
 				s.executeUpdate(query);
 				
-				//Her ürün için girilen satýcý ismi tek tek veritabanýna kaydedilir.
+				//The supplier name entered for each product is saved to the database one by one.
 				query = "INSERT INTO supplier VALUES ( currval('orderid_seq'), " + product.getBarcode() + ", '" + product.getSupplierName() + "')";
 				s = connection.createStatement();
 				s.executeUpdate(query);

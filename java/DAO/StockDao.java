@@ -28,7 +28,7 @@ public class StockDao {
 			s = connection.createStatement();
 			rs = s.executeQuery(query);
 			
-			//rs.next null deðilse quatity deðeri veritabanýnda mevcuttur. Aksi takdirde kayýt yoktur, quantity deðeri 0 olarak kalýr.
+			//If rs.next is not null, the quantity value exists in the database. Otherwise there is no record, the quantity value remains 0.
 			if(rs.next()) {
 				quantity = rs.getInt("quantity");
 			}

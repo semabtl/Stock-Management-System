@@ -66,7 +66,7 @@
 						<td><%= order.getOrderId() %></td>
 						<td><%= order.getOrderDate() %></td>
 						
-						<!-- Sipariş verilen ürünlerin barkodları tek tek tabloya yerleştirilir. -->
+						<!-- The barcodes of the ordered products are placed in the table one by one. -->
 						<td>
 							<table class="table table-borderless mb-0">
 								<tbody>
@@ -79,7 +79,7 @@
 							</table>
 						</td>
 						
-						<!-- Sipariş verilen ürünlerin satıcıları tek tek tabloya yerleştirilir. -->
+						<!-- The suppliers of the ordered products are placed in the table one by one. -->
 						<td>
 							<table class="table table-borderless mb-0">
 								<tbody>

@@ -17,17 +17,17 @@ public class UserDao {
 		this.con = con;
 	}
 	
-	//Kullanýcýnýn gitiþ yapmasý için metod
+	//Method for the user to log in
 	public User userLogin(String email, String password) {
 		User user = null;
 		
-		//Verilen e-posta ve þifreye sahip bir kullanýcý var mý diye veritabanýna bakýlýr.
+		//The database is checked to see if there is a user with the given e-mail and password.
 		try {
 			query = "SELECT * FROM users WHERE email = '" + email + "' and password = '" + password + "' ";
 			s = con.createStatement();
 			rs = s.executeQuery(query);
 			
-			//Kullanýcý varsa, bilgileri veritabanýndan alýnýr.
+			//If there is a user, the information is retrieved from the database.
 			if(rs.next()) {
 				user = new User();
 				user.setUserId(rs.getInt("userid"));
@@ -45,11 +45,11 @@ public class UserDao {
 		return user;
 	}
 	
-	//Bir e-postaya sahip sadece tek bir kullanýcý vardýr. Bu nedenle e-posta üzerinden kullanýcý id bilgisi bulunabilir.
+	//There is only one user with an email. Therefore, user id can be found via e-mail.
 	public int findUserIdByEmail(String email) {
 		int userId=0;
 		
-		//Kullanýcý id bilgisi users adlý kullanýcýlar tablosundan alýnýr.
+		//User id information is retrieved from the "users" table.
 		try {
 			query = "SELECT userid FROM users WHERE email='" + email +"'";
 			s = con.createStatement();

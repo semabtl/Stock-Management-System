@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@page import="Model.User"%>
 <%
-	//Kullanıcının giriş yapıp yapmadığı kontrol edilir.
+	//It is checked whether the user is logged in or not.
 	User auth = (User) request.getSession().getAttribute("auth");
 	if (auth != null) {
 		request.setAttribute("auth", auth);
@@ -12,7 +12,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Anasayfa</title>
+		<title>Homepage</title>
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	</head>
 	<body>

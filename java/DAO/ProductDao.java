@@ -22,31 +22,31 @@ public class ProductDao {
 	
 	
 	public void createNewProduct(String name, String category, double costPrice, double sellingPrice, int quantity, int userId) {
-		//Yeni ürün oluþturulur.
+		//New product is created.
 		Product newProduct = new Product(name, category, costPrice, sellingPrice);
 		
 		try { 
-			//Ürün veritabanýna eklenir.
+			//The product is added to the database.
 			query = "INSERT INTO products (productid, barcode, productname, category, costprice, sellingprice, userid) VALUES ( nextVal('productid_seq'), nextVal('barcode_seq'), '" +
 						name + "', '" + category  + "', " + costPrice + " , " + sellingPrice + ", " + userId +" ) "; 
 			s = connection.createStatement();
 			s.executeUpdate(query);
 			
-			//Eklenen ürünün id'si veritabanýndan alýnýr.
+			//Id of the newly added product is retrieved from the database.
 			query = "SELECT currval('productid_seq')";
 			s = connection.createStatement();
 			rs = s.executeQuery(query);
 			rs.next();
 			int productId = rs.getInt("currval");
 			
-			//Eklenen ürünün barkodu veritabanýndan alýnýr.
+			//The barcode of the newly added product is retrieved from the database.
 			query = "SELECT currval('barcode_seq')";
 			s = connection.createStatement();
 			rs = s.executeQuery(query);
 			rs.next();
 			int barcode = rs.getInt("currval");
 			
-			//Ürünün id ve barkodu ile ürünü ekleyen kullanýcýnýn id bilgisi belirlenir. Diðer özellikleri ürün oluþturulurken ayarlanmýþtý.
+			//The id and barcode of the product and the id of the user who added the product are determined. Other properties were set when the product was created.
 			newProduct.setProductId(productId);
 			newProduct.setBarcode(barcode);
 			newProduct.setUserId(userId);
